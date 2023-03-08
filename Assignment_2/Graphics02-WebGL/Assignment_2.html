@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<div>
+		delay 1 <input id="slider" type="range"
+		min="0" max="2" step="1" value="0" />
+		3
+	</div>
+		
+<head>
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+attribute vec4 vColor;
+varying vec4 fColor;
+uniform vec4 uOffset;
+uniform float theta;
+attribute vec4 vPostion2;
+attribute vec4 vColor2;
+
+void
+main()
+{
+    gl_Position = vPosition;
+    fColor = vColor;
+	gl_PointSize=20.0;
+
+	if (theta==0.0){
+		gl_Position = vPosition + uOffset;
+	}
+	else{
+		
+		float s = sin(theta);
+		float c = cos(theta);
+	
+		gl_Position.x=(-s * vPosition.y) + (c * vPosition.x) + 0.65;
+		gl_Position.y=(s * vPosition.x) + (c * vPosition.y)+0.65;
+		gl_Position.z=0.0+uOffset.z;
+		gl_Position.w=1.0+uOffset.w;
+	}
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+varying vec4 fColor;
+
+void
+main()
+{
+    gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="Assignment_2.js"></script>
+</head>
+
+<body>
+<p>201835542 한성구</p>
+<button id="Direction">Change Rotation Direction</button>
+
+<br>
+<br>
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>
